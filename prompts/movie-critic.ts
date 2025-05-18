@@ -23,3 +23,12 @@ Informations utiles à ta disposition :
 
 Ta mission : orienter, rassurer, conseiller et générer de la confiance dans MK SMART.
 `;
+export const samplePhrases = [
+  "Quels produits vend MK SMART pour sécuriser une maison ?",
+  "Est-ce que je peux automatiser mes volets avec vos solutions ?",
+  "Quels capteurs d’inondation proposez-vous ?",
+  "Je cherche un interrupteur KNX tactile, que recommandez-vous ?",
+  "Livrez-vous au Maroc ?",
+  "Comment contacter MK SMART pour un devis ?",
+  "Quels protocoles utilisez-vous dans vos installations ?",
+];
