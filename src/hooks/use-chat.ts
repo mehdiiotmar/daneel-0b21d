@@ -1,8 +1,9 @@
 import { fetchEventSource } from "@fortaine/fetch-event-source";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { appConfig } from "../../config.browser";
 
 const API_PATH = "/api/chat";
+
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
@@ -16,9 +17,7 @@ function streamAsyncIterator(stream: ReadableStream) {
     },
     return() {
       reader.releaseLock();
-      return {
-        value: {},
-      };
+      return { value: {} };
     },
     [Symbol.asyncIterator]() {
       return this;
@@ -26,105 +25,98 @@ function streamAsyncIterator(stream: ReadableStream) {
   };
 }
 
-/**
- * A custom hook to handle the chat state and logic
- */
 export function useChat() {
   const [currentChat, setCurrentChat] = useState<string | null>(null);
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [state, setState] = useState<"idle" | "waiting" | "loading">("idle");
 
-  // Lets us cancel the stream
   const abortController = useMemo(() => new AbortController(), []);
 
-  /**
-   * Cancels the current chat and adds the current chat to the history
-   */
-  function cancel() {
+  const cancel = useCallback(() => {
     setState("idle");
     abortController.abort();
-    if (currentChat) {
-      const newHistory = [
-        ...chatHistory,
-        { role: "user", content: currentChat } as const,
-      ];
 
-      setChatHistory(newHistory);
+    if (currentChat) {
+      setChatHistory((prev) => [
+        ...prev,
+        { role: "user", content: currentChat },
+      ]);
       setCurrentChat("");
     }
-  }
+  }, [abortController, currentChat]);
 
-  /**
-   * Clears the chat history
-   */
-
-  function clear() {
+  const clear = useCallback(() => {
     console.log("clear");
     setChatHistory([]);
-  }
+  }, []);
 
-  /**
-   * Sends a new message to the AI function and streams the response
-   */
-  const sendMessage = async (
-    message: string,
-    chatHistory: Array<ChatMessage>,
-  ) => {
-    setState("waiting");
-    let chatContent = "";
-    const newHistory = [
-      ...chatHistory,
-      { role: "user", content: message } as const,
-    ];
+  const sendMessage = useCallback(
+    async (message: string, chatHistory: ChatMessage[]) => {
+      setState("waiting");
 
-    setChatHistory(newHistory);
-    const body = JSON.stringify({
-      // Only send the most recent messages. This is also
-      // done in the serverless function, but we do it here
-      // to avoid sending too much data
-      messages: newHistory.slice(-appConfig.historyLength),
-    });
+      let chatContent = "";
+      const updatedHistory = [
+        ...chatHistory,
+        { role: "user", content: message },
+      ];
 
-    const decoder = new TextDecoder();
+      setChatHistory(updatedHistory);
+      const body = JSON.stringify({
+        messages: updatedHistory.slice(-appConfig.historyLength),
+      });
 
-    const res = await fetch(API_PATH, {
-      body,
-      method: "POST",
-      signal: abortController.signal,
-    });
-    
-    setCurrentChat("...");
+      const decoder = new TextDecoder();
 
-    if (!res.ok || !res.body) {
-      setState("idle");
-      return;
-    }
+      const res = await fetch(API_PATH, {
+        body,
+        method: "POST",
+        signal: abortController.signal,
+      });
 
-    for await (const event of streamAsyncIterator(res.body)) {
-      setState("loading");
-      const data = decoder.decode(event).split("\n")
-      for (const chunk of data) {
-        if(!chunk) continue;
-        const message = JSON.parse(chunk);
-        if (message?.role === "assistant") {
-          chatContent = "";
-          continue;
-        }
-        const content = message?.choices?.[0]?.delta?.content
-        if (content) {
-          chatContent += content;
-          setCurrentChat(chatContent);
+      setCurrentChat("...");
+
+      if (!res.ok || !res.body) {
+        setState("idle");
+        return;
+      }
+
+      for await (const event of streamAsyncIterator(res.body)) {
+        setState("loading");
+
+        const data = decoder.decode(event).split("\n");
+        for (const chunk of data) {
+          if (!chunk) continue;
+
+          const message = JSON.parse(chunk);
+          if (message?.role === "assistant") {
+            chatContent = "";
+            continue;
+          }
+
+          const content = message?.choices?.[0]?.delta?.content;
+          if (content) {
+            chatContent += content;
+            setCurrentChat(chatContent);
+          }
         }
       }
-    }
 
-    setChatHistory((curr) => [
-      ...curr,
-      { role: "assistant", content: chatContent } as const,
-    ]);
-    setCurrentChat(null);
-    setState("idle");
+      setChatHistory((prev) => [
+        ...prev,
+        { role: "assistant", content: chatContent },
+      ]);
+      setCurrentChat(null);
+      setState("idle");
+    },
+    [abortController]
+  );
+
+  return {
+    sendMessage,
+    currentChat,
+    chatHistory,
+    cancel,
+    clear,
+    state,
   };
-
-  return { sendMessage, currentChat, chatHistory, cancel, clear, state };
 }
