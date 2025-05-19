@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import {
+  FunctionComponent,
+  DetailedHTMLProps,
+  TableHTMLAttributes,
+} from "react";
 import ReactMarkdown from "react-markdown";
+import { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 import remarkGfm from "remark-gfm";
 
 interface ChatMessage {
@@ -7,15 +12,27 @@ interface ChatMessage {
   content: string;
 }
 
-const CustomTable: React.FC<any> = ({ children, ...props }) => (
-  <div className="overflow-x-auto">
-    <table {...props} className="w-full text-left border-collapse table-auto">
-      {children}
-    </table>
-  </div>
-);
+interface Props {
+  message: ChatMessage;
+}
 
-const ChatMessageComponent: React.FC<{ message: ChatMessage }> = ({ message }) =>
+const CustomTable: FunctionComponent<
+  Omit<
+    DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>,
+    "ref"
+  > &
+    ReactMarkdownProps
+> = ({ children, ...props }) => {
+  return (
+    <div className="overflow-x-auto">
+      <table {...props} className="w-full text-left border-collapse table-auto">
+        {children}
+      </table>
+    </div>
+  );
+};
+
+export const ChatMessage: React.FC<Props> = ({ message }) =>
   message.role === "user" ? (
     <div className="flex items-end justify-end my-2">
       <div className="flex items-end gap-2">
@@ -43,38 +60,9 @@ const ChatMessageComponent: React.FC<{ message: ChatMessage }> = ({ message }) =
             remarkPlugins={[remarkGfm]}
             components={{
               table: CustomTable,
-              img: ({ node, ...props }) => (
-                <img
-                  {...props}
-                  className="max-w-full rounded-md"
-                  alt={props.alt}
-                />
-              ),
             }}
           />
         </div>
       </div>
     </div>
   );
-
-export default function ChatExample() {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "user",
-      content: "Salut, comment ça va ?",
-    },
-    {
-      role: "assistant",
-      content:
-        "Salut ! Je vais bien, merci 😄.\n\nVoici une image pour toi:\n\n![Chat mignon](https://placekitten.com/300/200)",
-    },
-  ]);
-
-  return (
-    <div className="max-w-md mx-auto mt-10 p-4">
-      {messages.map((msg, i) => (
-        <ChatMessageComponent key={i} message={msg} />
-      ))}
-    </div>
-  );
-}
