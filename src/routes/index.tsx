@@ -63,10 +63,10 @@ export default function Index() {
                 </div>
                 <div className="flex justify-center">
                   <p className="text-sm text-gray-500 mt-5">
-                    Built with 🤖{" "}
+                    Built By Mehdi{" "}
                     <a
                       className="underline"
-                      href="https://github.com/ascorbic/daneel"
+                      href="https://api.whatsapp.com/message/TPX5EL6KJMDNP1?autoload=1&app_absent=0"
                     >
                       Daneel
                     </a>
