@@ -11,11 +11,11 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
 }
+
 interface Props {
   message: ChatMessage;
 }
 
-// This lets us style any markdown tables that are rendered
 const CustomTable: FunctionComponent<
   Omit<
     DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>,
@@ -32,30 +32,39 @@ const CustomTable: FunctionComponent<
   );
 };
 
-/**
- * This component renders a single chat message. It is rendered according to
- * whether it isa  message from the assistant or the user.
- */
-
 export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
   message,
 }) =>
   message.role === "user" ? (
-    <div className="flex items-end justify-end">
-      <div className="bg-gray-300 border-gray-100 border-2 rounded-lg p-2 max-w-lg">
-        <p>{message.content}</p>
+    <div className="flex items-end justify-end my-2">
+      <div className="flex items-end gap-2">
+        <div className="bg-green-500 text-white rounded-2xl px-4 py-2 max-w-xs md:max-w-md shadow-md">
+          <p className="break-words">{message.content}</p>
+        </div>
+        <img
+          src="/user-avatar.png"
+          alt="User"
+          className="w-8 h-8 rounded-full object-cover"
+        />
       </div>
     </div>
   ) : (
-    <div className="flex items-end">
-      <div className="bg-gray-100 border-gray-300 border-2 rounded-lg p-2 mr-20 w-full">
-        <ReactMarkdown
-          children={message.content}
-          remarkPlugins={[remarkGfm]}
-          components={{
-            table: CustomTable,
-          }}
+    <div className="flex items-end justify-start my-2">
+      <div className="flex items-end gap-2">
+        <img
+          src="/bot-avatar.png"
+          alt="Assistant"
+          className="w-8 h-8 rounded-full object-cover"
         />
+        <div className="bg-white text-gray-800 rounded-2xl px-4 py-2 max-w-xs md:max-w-md shadow border border-gray-300">
+          <ReactMarkdown
+            children={message.content}
+            remarkPlugins={[remarkGfm]}
+            components={{
+              table: CustomTable,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
