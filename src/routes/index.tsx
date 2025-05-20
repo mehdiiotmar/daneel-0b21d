@@ -34,7 +34,7 @@ export default function Index() {
                 ))}
               </div>
               <p className="text-xs text-gray-300 text-center mt-8 select-none">
-                Créé avec ❤️ par Mehdi |{" "}
+                Créé avec X-EMB- par Mehdi |{" "}
                 <a 
                   className="underline hover:text-emerald-300 transition" 
                   href="https://api.whatsapp.com/message/TPX5EL6KJMDNP1?autoload=1&app_absent=0" 
