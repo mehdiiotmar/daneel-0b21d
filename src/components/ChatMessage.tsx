@@ -32,6 +32,12 @@ const CustomTable: FunctionComponent<
   );
 };
 
+// Avatar URLs
+const userAvatarUrl =
+  "https://cdn-icons-png.flaticon.com/512/219/219983.png"; // exemple icône utilisateur
+const botAvatarUrl =
+  "https://cdn-icons-png.flaticon.com/512/4712/4712109.png"; // exemple robot
+
 export const ChatMessage: React.FC<Props> = ({ message }) =>
   message.role === "user" ? (
     <div className="flex items-end justify-end my-2">
@@ -40,7 +46,7 @@ export const ChatMessage: React.FC<Props> = ({ message }) =>
           <p className="break-words">{message.content}</p>
         </div>
         <img
-          src="/user-avatar.png"
+          src={userAvatarUrl}
           alt="User"
           className="w-8 h-8 rounded-full object-cover"
         />
@@ -50,7 +56,7 @@ export const ChatMessage: React.FC<Props> = ({ message }) =>
     <div className="flex items-end justify-start my-2">
       <div className="flex items-end gap-2">
         <img
-          src="/bot-avatar.png"
+          src={botAvatarUrl}
           alt="Assistant"
           className="w-8 h-8 rounded-full object-cover"
         />
