@@ -1,22 +1,25 @@
 import React from "react";
 
 export const Welcome: React.FC = () => (
-  <div className="bg-white border-gray-100 border-2 rounded-lg px-8 py-5 mr-20 w-full">
-    <h1 className="text-2xl font-bold mb-2">🤖 Hello, I am eLMehdi - MKSMART</h1>
-    <p>
-      You can use me to create your own chatbot app. 
-      Feel free to ask me about home automation! Then, create
-      your own bot.
+  <div className="bg-gradient-to-r from-white to-gray-50 border border-gray-200 rounded-2xl p-6 shadow-md w-full max-w-3xl mx-auto">
+    <h1 className="text-3xl font-semibold text-emerald-600 mb-3">
+      👋 Bienvenue chez MADOMOTIQUE
+    </h1>
+    <p className="text-gray-700 text-base">
+      Je suis votre assistant intelligent dédié à la <strong>domotique</strong>.
+      Posez-moi toutes vos questions sur l’automatisation de votre maison et les
+      produits connectés. Ensemble, rendons votre maison plus intelligente !
     </p>
-    <p className="mt-2">
+
+    <div className="mt-4">
       <a
         href="https://www.mksmart.ma/shop"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-600 underline hover:text-blue-800"
+        className="inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition"
       >
-        Explore home automation products
+        🛒 Voir les produits domotiques
       </a>
-    </p>
+    </div>
   </div>
 );
