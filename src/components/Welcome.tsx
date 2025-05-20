@@ -13,7 +13,7 @@ export const Welcome: React.FC = () => (
 
     <div className="mt-4">
       <a
-        href="https://www.mksmart.ma/shop"
+        href="https://madomotique.ma/"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition"
