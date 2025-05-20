@@ -4,7 +4,6 @@ import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "../components/ChatMessage";
 import { Welcome } from "../components/Welcome";
 import { appConfig } from "../../config.browser";
-import { Wand2, Lightbulb, Thermometer, Lock, Send, Trash2 } from "lucide-react";
 
 export default function Index() {
   const [message, setMessage] = useState("");
@@ -74,7 +73,10 @@ export default function Index() {
               aria-label="Clear chat"
               title="Effacer la conversation"
             >
-              <Trash2 size={18} />
+              {/* Simple SVG trash icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4m-4 0a1 1 0 00-1 1v1h6V4a1 1 0 00-1-1m-4 0h4" />
+              </svg>
             </button>
           )}
           <input
@@ -93,7 +95,11 @@ export default function Index() {
             aria-label="Send message"
             title="Envoyer"
           >
-            <Send size={20} />
+            {/* Simple SVG send icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10l9-4 9 4-9 4-9-4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 14l9 4 9-4" />
+            </svg>
           </button>
         </form>
       </main>
