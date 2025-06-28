@@ -3,12 +3,13 @@ import React from "react";
 export const Welcome: React.FC = () => (
   <div className="bg-gradient-to-r from-white to-gray-50 border border-gray-200 rounded-2xl p-6 shadow-md w-full max-w-3xl mx-auto">
     <h1 className="text-3xl font-semibold text-emerald-600 mb-3">
-      👋 Bienvenue chez MADOMOTIQUE
+      👋 Bienvenue chez KAIZEN OFFICE SHIFT D 
     </h1>
     <p className="text-gray-700 text-base">
-      Je suis votre assistant intelligent dédié à la <strong>domotique</strong>.
-      Posez-moi toutes vos questions sur l’automatisation de votre maison et les
-      produits connectés. Ensemble, rendons votre maison plus intelligente !
+      👋 Welcome to the APM Kaizen Assistant!
+      This tool helps you turn your improvement ideas into a clear and professional One-Pager — identifying the goal, root causes, key improvements, and impacted KPIs.
+      Let’s build a safer, smoother, and smarter terminal together.
+      💬 "كل فكرة لها قيمة. صوتك يساعدنا في بناء محطة أكثر أمانًا وسلاسة وذكاءً – معًا.
     </p>
 
     <div className="mt-4">
