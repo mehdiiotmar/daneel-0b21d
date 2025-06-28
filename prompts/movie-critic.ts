@@ -113,3 +113,8 @@ Clear, concise explanation of the problem or inefficiency observed.
 - Be short, clear, direct
 - Do not generate unnecessary text
 `;
+export const samplePhrases = [
+  "We lose time opening seals – scissors too heavy.",
+  "Operators wait for safety gate to unlock – it’s too far.",
+ 
+]; THIS IS PROMPT FOR MY BOT WORKING ON API GPT 
