@@ -16,7 +16,7 @@ export default function Index() {
   useEffect(() => { inputRef.current?.focus(); }, [state]);
 
   return (
-    <App title="MK SMART Home Assistant">
+    <App title="KAIZEN OFFICE">
       <main className="min-h-screen bg-gradient-to-br from-emerald-800 via-emerald-900 to-emerald-950 text-white p-6 flex flex-col items-center justify-center font-sans">
         <section className="w-full max-w-4xl bg-white/20 backdrop-blur-lg rounded-3xl shadow-2xl p-8 flex flex-col space-y-8 max-h-[75vh] overflow-y-auto">
           {chatHistory.length === 0 ? (
