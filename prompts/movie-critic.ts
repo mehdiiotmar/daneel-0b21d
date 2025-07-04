@@ -160,6 +160,8 @@ Each delay MUST be analyzed and translated into:
 - No theoretical or generic advice
 - Be brief, Lean, and operational
 - Use Markdown formatting only
+- COUNTERMEASURES [Only use actions listed by the user – do not generate yourself]
+
 `;
 
 
