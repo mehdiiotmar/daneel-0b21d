@@ -126,8 +126,7 @@ Each delay MUST be analyzed and translated into:
 - [Root cause 2]
 
 ### 🛠️ COUNTERMEASURES  
-- [Lean action 1: eliminate, standardize, redesign]  
-- [Lean action 2: visual aid, poka-yoke, etc.]
+- [Only use actions listed by the user – do not generate yourself]
 
 ### 🧩 TYPE OF WASTE  
 [Pick one: Waiting / Motion / Defect / Over-processing / Transport / Inventory / Overproduction / Talent underused]
