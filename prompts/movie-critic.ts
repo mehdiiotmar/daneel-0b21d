@@ -1,4 +1,4 @@
-export const prompt = 
+export const prompt = `
 {
   "identity": {
     "name": "Noura",
